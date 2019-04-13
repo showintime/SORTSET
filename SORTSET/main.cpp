@@ -12,6 +12,25 @@ void QuickSort(MType arr[],int len)
 }
 
 
+void InsertSortDG(MType arr[], int len)
+{
+
+	if (len == 1)
+	{
+		return;
+	}
+
+	InsertSortDG(arr, len - 1);
+
+	int i = 0;
+	MType tema = arr[len - 1];
+	for (i = len - 1; i > 0 && tema < arr[i - 1]; i--)
+	{
+		arr[i] = arr[i-1];
+	}
+	arr[i] = tema;
+}
+
 void InsertSort(MType arr[], int len)
 {
 	std::cout << "InsertSort数据" << std::endl;
@@ -148,11 +167,13 @@ int main()
 	MType arr[AMAX] = { 0 };
 	MType arr1[AMAX] = { 0 };
 	MType arr2[AMAX] = { 0 };
+	MType arr3[AMAX] = { 0 };
 	for (int i = 0; i < AMAX; i++)
 	{
 		arr[i] = AMAX - i;
 		arr1[i] = AMAX - i;
 		arr2[i] = AMAX - i;
+		arr3[i] = AMAX - i;
 	}
 	
 	std::cout << "原数据" << std::endl;
@@ -166,7 +187,8 @@ int main()
 	disp(arr1, AMAX);
 	InsertSort(arr2, AMAX);
 	disp(arr2, AMAX);
-
+	InsertSortDG(arr3, AMAX);
+	disp(arr3, AMAX);
 	
 
 
