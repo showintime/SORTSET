@@ -5,25 +5,53 @@
 #define AMAX 10
 typedef int MType;
 
+/*
+选择排序
+*/
+void SelectSort(MType arr[], int len)
+{
+	int i = 0, j = 0;
+	MType arrmax = 0, arrmin = 0;
+	for (i = 0; i < len; i++)
+	{
 
+	}
+
+}
+
+
+
+/*
+快速排序
+*/
 void QuickSort(MType arr[],int len)
 {
 
 }
 
 
+
+/*
+函数:void InsertSortDG(MType arr[], int len)
+功能:插入排序(递归实现)
+参数:arr为传入的数组的地址
+参数:len为传入数组的长度
+*/
 void InsertSortDG(MType arr[], int len)
 {
-
+	//如果待插入的数组的长度只有1时,则直接返回即可,无需进行排序
 	if (len == 1)
 	{
 		return;
 	}
-
+	//调用自己,对前len-1个数,该语句执行完,即前len-1个数已有序
 	InsertSortDG(arr, len - 1);
-
+	//_
 	int i = 0;
+	//临时变量，用于交换两个数的位置,存储待插入的数
 	MType tema = arr[len - 1];
+	//循环条件为从插入的数字之前的有序数中查找比这个数小的数,如果没有的话,j为0
+	//即该循环结束后,j即为带插入的数的位置
 	for (i = len - 1; i > 0 && tema < arr[i - 1]; i--)
 	{
 		arr[i] = arr[i-1];
@@ -31,36 +59,55 @@ void InsertSortDG(MType arr[], int len)
 	arr[i] = tema;
 }
 
+
+/*
+函数:void InsertSort(MType arr[], int len)
+功能:插入排序
+参数:arr为传入的数组的地址
+参数:len为传入数组的长度
+*/
 void InsertSort(MType arr[], int len)
 {
 	std::cout << "InsertSort数据" << std::endl;
+	//_
 	int i = 0, j = 0;
+	//临时变量，用于交换两个数的位置,存储待插入的数
 	MType tema;
 	for (i = 1; i < len; i++)
 	{
 		tema = arr[i];
+		//循环条件为从插入的数字之前的有序数中查找比这个数小的数,如果没有的话,j为0
+		//即该循环结束后,j即为带插入的数的位置
 		for (j = i ; j > 0 && tema < arr[j - 1]; j--)
 		{
-			
-
-			arr[j] = arr[j - 1];;
-
-
-			
+			//向前查找,并且待插入的数比与之比较的数小,则将这个比较的数向后移位
+			arr[j] = arr[j - 1];			
 		}
 		arr[j]=tema;
-
 	}
 }
 
 
+
+/*
+函数:void BubbleSortJW(MType arr[], int len)
+功能:鸡尾酒排序
+参数:arr为传入的数组的地址
+参数:len为传入数组的长度
+*/
 void BubbleSortJW(MType arr[], int len)
 {
 	std::cout << "BubbleSortJW数据" << std::endl;
+
+	//_
 	int i = 0, j = 0;
+	//记录比较次数
 	int compilecounts = 0;
+	//记录交换次数
 	int swapcounts = 0;
+	//设置旗帜
 	int flag = 0;
+	//临时变量，用于交换两个数的位置
 	MType tema;
 	for (i = 0; i < len/2; i++)
 	{
@@ -81,6 +128,7 @@ void BubbleSortJW(MType arr[], int len)
 			}
 
 		}
+		//如果旗帜的值没有发生改变,说明所有数已有序,退出
 		if (flag == 0)
 		{
 			break;
@@ -100,6 +148,7 @@ void BubbleSortJW(MType arr[], int len)
 				swapcounts++;
 			}
 		}
+		//如果旗帜的值没有发生改变,说明所有数已有序,退出
 		if (flag == 0)
 		{
 			break;
@@ -113,16 +162,29 @@ void BubbleSortJW(MType arr[], int len)
 
 }
 
+
+/*
+函数:void BubbleSort(MType arr[],int len)
+功能:冒泡排序
+参数:arr为传入的数组的地址
+参数:len为传入数组的长度
+*/
 void BubbleSort(MType arr[],int len)
 {
 	std::cout << "BubbleSort数据" << std::endl;
+	//_
 	int i = 0, j = 0;
+	//记录比较次数
 	int compilecounts = 0;
+	//记录交换次数
 	int swapcounts = 0;
+	//设置旗帜
 	int flag = 0;
+
 	MType tema;
 	for (i = 0; i < len - 1; i++)
 	{
+		
 		flag = 0;
 		for (j = 0; j < len - 1 - i; j++)
 		{
@@ -140,16 +202,25 @@ void BubbleSort(MType arr[],int len)
 			}
 			
 		}
+		//如果旗帜的值没有发生改变,说明所有数已有序,退出
 		if (flag == 0)
 		{
 			break;
 		}
 	}
+
 	std::cout << compilecounts << "次比较" << std::endl;
 	std::cout << swapcounts << "次交换" << std::endl;
 
 }
 
+
+/*
+函数:void disp(MType arr[],int len)
+功能:打印数组
+参数:arr为传入的数组的地址
+参数:len为传入数组的长度
+*/
 void disp(MType arr[],int len)
 {
 	
@@ -161,6 +232,8 @@ void disp(MType arr[],int len)
 }
 
 
+
+//Main入口
 int main()
 {
 	MType arr4[5] = { 2,3,1,4,5 };
