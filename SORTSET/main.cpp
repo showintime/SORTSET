@@ -1,6 +1,6 @@
 #include "iostream"
 
-#define ISDEBUG
+#define DEBUG
 
 #define AMAX 10
 typedef int MType;
@@ -68,7 +68,7 @@ void InsertSortDG(MType arr[], int len)
 */
 void InsertSort(MType arr[], int len)
 {
-	std::cout << "InsertSort数据" << std::endl;
+	
 	//_
 	int i = 0, j = 0;
 	//临时变量，用于交换两个数的位置,存储待插入的数
@@ -85,6 +85,12 @@ void InsertSort(MType arr[], int len)
 		}
 		arr[j]=tema;
 	}
+
+
+#ifdef DEBUG
+	std::cout << "InsertSort数据" << std::endl;
+#endif // DEBUG
+
 }
 
 
@@ -97,7 +103,7 @@ void InsertSort(MType arr[], int len)
 */
 void BubbleSortJW(MType arr[], int len)
 {
-	std::cout << "BubbleSortJW数据" << std::endl;
+	
 
 	//_
 	int i = 0, j = 0;
@@ -155,8 +161,13 @@ void BubbleSortJW(MType arr[], int len)
 		}
 		
 	}
+
+#ifdef DEBUG
+	std::cout << "BubbleSortJW数据" << std::endl;
 	std::cout << compilecounts << "次比较" << std::endl;
 	std::cout << swapcounts << "次交换" << std::endl;
+#endif // DEBUG
+
 
 
 
@@ -171,7 +182,7 @@ void BubbleSortJW(MType arr[], int len)
 */
 void BubbleSort(MType arr[],int len)
 {
-	std::cout << "BubbleSort数据" << std::endl;
+	
 	//_
 	int i = 0, j = 0;
 	//记录比较次数
@@ -209,8 +220,12 @@ void BubbleSort(MType arr[],int len)
 		}
 	}
 
+#ifdef DEBUG
+	std::cout << "BubbleSort数据" << std::endl;
 	std::cout << compilecounts << "次比较" << std::endl;
 	std::cout << swapcounts << "次交换" << std::endl;
+
+#endif // DEBUG
 
 }
 
