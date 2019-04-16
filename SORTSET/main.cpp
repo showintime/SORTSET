@@ -96,7 +96,7 @@ void SelectSort(MType arr[], int len)
 */
 void SelectSortDG(MType arr[],int low, int high)
 {
-	if (high - low < 2)
+	if (high - low < 1)
 	{
 		return;
 	}
