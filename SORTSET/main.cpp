@@ -41,6 +41,36 @@ void SelectSort(MType arr[], int len)
 }
 
 
+void SelectSortDG(MType arr[],int low, int high)
+{
+	if (high - low < 2)
+	{
+		return;
+	}
+	int i = 0;
+	MType tema;
+	for (i = low; i <= high; i++)
+	{
+		if (arr[i] < arr[low])
+		{
+			tema = arr[i];
+			arr[i] = arr[low];
+			arr[low] = tema;
+		}
+		if (arr[i] > arr[high])
+		{
+			tema = arr[i];
+			arr[i] = arr[high];
+			arr[high] = tema;
+		}
+	}
+
+
+	SelectSortDG(arr, low + 1, high - 1);
+
+}
+
+
 
 /*
 快速排序
@@ -282,6 +312,8 @@ int main()
 	MType arr2[AMAX] = { 0 };
 	MType arr3[AMAX] = { 0 };
 	MType arr4[AMAX] = { 0 };
+	MType arr5[AMAX] = { 0 };
+
 	for (int i = 0; i < AMAX; i++)
 	{
 		arr[i] = AMAX - i;
@@ -289,6 +321,7 @@ int main()
 		arr2[i] = AMAX - i;
 		arr3[i] = AMAX - i;
 		arr4[i] = AMAX - i;
+		arr5[i] = AMAX - i;
 	}
 	
 	std::cout << "原数据" << std::endl;
@@ -305,7 +338,9 @@ int main()
 	InsertSortDG(arr3, AMAX);
 	disp(arr3, AMAX);
 	SelectSort(arr4, AMAX);
-	disp(arr4,AMAX);
+	disp(arr4, AMAX);
+	SelectSortDG(arr5, 0, AMAX-1);
+	disp(arr5, AMAX);
 	
 
 
