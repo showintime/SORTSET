@@ -5,6 +5,57 @@
 #define AMAX 10
 typedef int MType;
 
+
+
+
+/*
+快速排序
+*/
+void QuickSort(MType arr[], int low, int high)
+{
+	if (low >= high)
+	{
+		return;
+	}
+	int teml = low;
+	int temr = high;
+
+	MType tema;
+	while (low != high)
+	{
+		if (arr[high] > arr[teml])
+		{
+			high--;
+			continue;
+		}
+		if (arr[low] <= arr[teml])
+		{
+			low++;
+			continue;
+		}
+		if (low < high)
+		{
+			tema = arr[low];
+			arr[low] = arr[high];
+			arr[high] = tema;
+
+		}
+
+	}
+	tema = arr[teml];
+	arr[teml] = arr[low];
+	arr[low] = tema;
+
+
+	QuickSort(arr, teml, low - 1);
+	QuickSort(arr, low + 1, temr);
+
+
+}
+
+
+
+
 /*
 选择排序
 */
@@ -40,7 +91,9 @@ void SelectSort(MType arr[], int len)
 
 }
 
-
+/*
+选择排序
+*/
 void SelectSortDG(MType arr[],int low, int high)
 {
 	if (high - low < 2)
@@ -67,20 +120,6 @@ void SelectSortDG(MType arr[],int low, int high)
 
 
 	SelectSortDG(arr, low + 1, high - 1);
-
-}
-
-
-
-/*
-快速排序
-*/
-void QuickSort(MType arr[], int low, int high)
-{
-	if (low == high)
-	{
-		return;
-	}
 
 }
 
@@ -313,6 +352,7 @@ int main()
 	MType arr3[AMAX] = { 0 };
 	MType arr4[AMAX] = { 0 };
 	MType arr5[AMAX] = { 0 };
+	MType arr6[AMAX] = { 0 };
 
 	for (int i = 0; i < AMAX; i++)
 	{
@@ -322,6 +362,7 @@ int main()
 		arr3[i] = AMAX - i;
 		arr4[i] = AMAX - i;
 		arr5[i] = AMAX - i;
+		arr6[i] = AMAX - i;
 	}
 	
 	std::cout << "原数据" << std::endl;
@@ -341,6 +382,8 @@ int main()
 	disp(arr4, AMAX);
 	SelectSortDG(arr5, 0, AMAX-1);
 	disp(arr5, AMAX);
+	QuickSort(arr6, 0, AMAX - 1);
+	disp(arr6, AMAX);
 	
 
 
