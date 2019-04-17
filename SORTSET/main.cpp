@@ -1,53 +1,126 @@
+
+//MUST INCLUDE　IT
 #include "iostream"
 
+
+//程序版本,DEBUG为测试版本
 #define DEBUG
 
+
+//指定数组长度
 #define AMAX 10
+
+//指定数组类型
 typedef int MType;
 
 
+/*
+函数:void GravitySort(MType arr[], int len)
+说明:重力排序(仅能用于非负整数排序)
+参数:arr为传入的数组的地址
+参数:len为传入数组的长度
+*/
+void GravitySort(MType arr[], int len)
+{
+	MType arrMax;
+	MType arrMin;
 
+	int i = 0, j = 0;
+	arrMax = arr[0];
+	arrMin = arr[0];
+	for (i = 0; i < len; i++)
+	{
+		if (arrMax < arr[i])
+		{
+			arrMax = arr[i];
+		}
+		if (arrMin > arr[i])
+		{
+			arrMin = arr[i];
+		}
+	}
+	MType *pTable = (MType *)malloc(sizeof(MType)*(arrMax - arrMin));
+
+	for (i = 0; i < arrMax - arrMin; i++)
+	{
+		pTable[i] = 0;
+	}
+
+	for (i = 0; i < len; i++)
+	{
+		for (j = 0; j < arr[i] - arrMin; j++)
+		{
+			pTable[j]++;
+		}
+		arr[i] = arrMin;
+	}
+
+	for (i = len - 1; i >= 0; i--)
+	{
+		for (j = 0; j < (arrMax - arrMin) &&pTable[j] != 0; j++)
+		{
+			arr[i] += 1;
+			pTable[j]--;
+		}
+
+	}
+
+	free(pTable);
+
+}
 
 /*
-快速排序
+函数:void QuickSort(MType arr[], int low, int high)
+说明:快速排序
+参数:arr为传入数组的地址
+参数:low为待排序数组的起始下标
+参数:high为待排序数组的终止下标
+
 */
 void QuickSort(MType arr[], int low, int high)
 {
+	//如果传入的数组的起始地址大于或等于终止地址,则退出排序算法
 	if (low >= high)
 	{
 		return;
 	}
+	//记录排序的起始地址
 	int teml = low;
+	//记录排序的终止地址
 	int temr = high;
-
+	//临时变量，用于交换两个数的位置
 	MType tema;
+
 	while (low != high)
 	{
+		//从右端找到一个比arr[tem1]小的数,记录下标为high
 		if (arr[high] > arr[teml])
 		{
 			high--;
 			continue;
 		}
+		//再从左端找到一个比arr[tem1]大的数,记录下标为low
 		if (arr[low] <= arr[teml])
 		{
 			low++;
 			continue;
 		}
-		if (low < high)
-		{
-			tema = arr[low];
-			arr[low] = arr[high];
-			arr[high] = tema;
+		//交换两个下标的值
+		tema = arr[low];
+		arr[low] = arr[high];
+		arr[high] = tema;
 
-		}
+		
 
 	}
+	//将arr[teml]的值与arr[low]的值交换,交换后low下标左边的值都比它小,右边的值都比它大
 	tema = arr[teml];
 	arr[teml] = arr[low];
 	arr[low] = tema;
 
-
+	//递归排列low下标左端的数
 	QuickSort(arr, teml, low - 1);
+	//递归排列low下标右端的数
 	QuickSort(arr, low + 1, temr);
 
 
@@ -57,23 +130,31 @@ void QuickSort(MType arr[], int low, int high)
 
 
 /*
-选择排序
+函数:void SelectSort(MType arr[], int len)
+说明:选择排序
+参数:arr为传入数组的地址
+参数:len为传入数组的长度
 */
 void SelectSort(MType arr[], int len)
 {
+	//_
 	int i = 0, j = 0;
-	MType arrmax = 0, arrmin = 0;
+	//临时变量，用于交换两个数的位置
 	MType tema;
+	//每一次循环都能找到最大值和最小值两个数字,所以只需循环一半即可
 	for (i = 0; i < len/2; i++)
 	{
+		//寻找第i层最大最小值
 		for (j = i; j < len - 1 - i; j++)
 		{
+			//arr[i]为第i层最小值
 			if (arr[i] > arr[j])
 			{
 				tema = arr[i];
 				arr[i] = arr[j];
 				arr[j] = tema;
 			}
+			//arr[len - i -1]为第i层最大值
 			if (arr[len - 1 - i] < arr[j])
 			{
 				tema = arr[len - 1 - i];
@@ -92,24 +173,34 @@ void SelectSort(MType arr[], int len)
 }
 
 /*
-选择排序
+函数:void SelectSortDG(MType arr[],int low, int high)
+说明:选择排序(递归实现)
+参数:arr为传入的数组的地址
+参数:low为待排列数组的起始下标
+参数:high为待排列的数组的终止下表
 */
 void SelectSortDG(MType arr[],int low, int high)
 {
-	if (high - low < 1)
+	//如果传入的数组的起始下标大于终止下标,则退出排列算法
+	if (low >= high)
 	{
 		return;
 	}
+	//_
 	int i = 0;
+	//临时变量，用于交换两个数的位置
 	MType tema;
+	//从给定数组的指定位置排列,循环结束后arr[low]为该段数组的最小值,arr[high]为该段数组的最大值
 	for (i = low; i <= high; i++)
 	{
+		//找到数组中最小值
 		if (arr[i] < arr[low])
 		{
 			tema = arr[i];
 			arr[i] = arr[low];
 			arr[low] = tema;
 		}
+		//找到数组中的最大值
 		if (arr[i] > arr[high])
 		{
 			tema = arr[i];
@@ -118,7 +209,7 @@ void SelectSortDG(MType arr[],int low, int high)
 		}
 	}
 
-
+	//递归内层
 	SelectSortDG(arr, low + 1, high - 1);
 
 }
@@ -127,7 +218,7 @@ void SelectSortDG(MType arr[],int low, int high)
 
 /*
 函数:void InsertSortDG(MType arr[], int len)
-功能:插入排序(递归实现)
+说明:插入排序(递归实现)
 参数:arr为传入的数组的地址
 参数:len为传入数组的长度
 */
@@ -156,7 +247,7 @@ void InsertSortDG(MType arr[], int len)
 
 /*
 函数:void InsertSort(MType arr[], int len)
-功能:插入排序
+说明:插入排序
 参数:arr为传入的数组的地址
 参数:len为传入数组的长度
 */
@@ -191,7 +282,7 @@ void InsertSort(MType arr[], int len)
 
 /*
 函数:void BubbleSortJW(MType arr[], int len)
-功能:鸡尾酒排序
+说明:鸡尾酒排序
 参数:arr为传入的数组的地址
 参数:len为传入数组的长度
 */
@@ -270,7 +361,7 @@ void BubbleSortJW(MType arr[], int len)
 
 /*
 函数:void BubbleSort(MType arr[],int len)
-功能:冒泡排序
+说明:冒泡排序
 参数:arr为传入的数组的地址
 参数:len为传入数组的长度
 */
@@ -285,7 +376,7 @@ void BubbleSort(MType arr[],int len)
 	int swapcounts = 0;
 	//设置旗帜
 	int flag = 0;
-
+	//临时变量，用于交换两个数的位置
 	MType tema;
 	for (i = 0; i < len - 1; i++)
 	{
@@ -326,7 +417,7 @@ void BubbleSort(MType arr[],int len)
 
 /*
 函数:void disp(MType arr[],int len)
-功能:打印数组
+说明:打印数组
 参数:arr为传入的数组的地址
 参数:len为传入数组的长度
 */
@@ -353,6 +444,7 @@ int main()
 	MType arr4[AMAX] = { 0 };
 	MType arr5[AMAX] = { 0 };
 	MType arr6[AMAX] = { 0 };
+	MType arr7[AMAX] = { 0 };
 
 	for (int i = 0; i < AMAX; i++)
 	{
@@ -363,6 +455,7 @@ int main()
 		arr4[i] = AMAX - i;
 		arr5[i] = AMAX - i;
 		arr6[i] = AMAX - i;
+		arr7[i] = AMAX - i;
 	}
 	
 	std::cout << "原数据" << std::endl;
@@ -384,7 +477,8 @@ int main()
 	disp(arr5, AMAX);
 	QuickSort(arr6, 0, AMAX - 1);
 	disp(arr6, AMAX);
-	
+	GravitySort(arr7, AMAX);
+	disp(arr7, AMAX);
 
 
 
